@@ -1,0 +1,175 @@
+<!DOCTYPE HTML>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kỷ niệm tình yêu của chúng mình 💗</title>
+  <meta name="description" content="Trang kỷ niệm tình yêu: đếm ngày yêu, timeline, gallery ảnh, thư tình và những điều ngọt ngào.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;600;700;800&family=Dancing+Script:wght@600;700&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="./css/style.css">
+</head>
+<body>
+<canvas id="bg"></canvas>
+
+<!-- Màn hình chào: bấm để vào (giúp trình duyệt cho phát nhạc) -->
+<div id="loader">
+  <div class="loader-card">
+    <div class="seal">💌</div>
+    <h1>Gửi loopy của anh</h1>
+    <p>Anh có một trang nhỏ đầy kỷ niệm muốn dành tặng em.<br>Em sẵn sàng mở ra chưa?</p>
+    <button id="enterBtn">Chạm để mở 💗</button>
+    <div class="tiny">Bật loa lên nhé, có nhạc của chúng mình đó 🎶</div>
+  </div>
+</div>
+
+<audio id="bgm" loop preload="auto">
+  <source src="music/music.mp3" type="audio/mpeg">
+</audio>
+
+<nav class="top">
+  <div class="brand">💗 Loopy &amp; Anh</div>
+  <div class="links">
+    <a href="#hero">Trang chủ</a>
+    <a href="#timeline-sec">Hành trình</a>
+    <a href="#gallery-sec">Ảnh</a>
+    <a href="#letter-sec">Thư</a>
+    <a href="#fun-sec">Vui</a>
+  </div>
+  <button class="music-btn" id="musicBtn" title="Bật / tắt nhạc">🔇</button>
+</nav>
+
+<header class="hero" id="hero">
+  <span class="badge">💍 Since 21 · 10 · 2023 — 22:00</span>
+  <h1><span class="script">Kỷ niệm tình yêu</span><br><span class="grad">của chúng mình</span></h1>
+  <div class="type-line"><span id="txt1"></span><br><span id="txt2"></span><span class="caret"></span></div>
+
+  <div class="timer-grid">
+    <div class="timer-card love"><b id="d">0</b><span>Days</span></div>
+    <div class="timer-card"><b id="h">00</b><span>Hours</span></div>
+    <div class="timer-card"><b id="m">00</b><span>Minutes</span></div>
+    <div class="timer-card"><b id="s">00</b><span>Seconds</span></div>
+  </div>
+
+  <div class="countdown" id="cdText">Đang tính ngày kỷ niệm tiếp theo…</div>
+
+  <div class="cta-row">
+    <a class="btn btn-primary" href="#gallery-sec">Xem ảnh của chúng mình 📸</a>
+    <a class="btn btn-ghost" href="#letter-sec">Mở thư tình 💌</a>
+  </div>
+
+  <div class="hero-art">
+    <img class="loopy-spin" src="./pic/2.png" alt="" onerror="this.style.display='none'">
+    <img class="loopy-main" src="./pic/1.png" alt="loopy" onerror="this.style.display='none'">
+    <img class="loopy-spin" src="./pic/2.png" alt="" onerror="this.style.display='none'">
+  </div>
+  <p class="scroll-hint">⬇ kéo xuống để xem hành trình yêu ⬇</p>
+</header>
+
+<main>
+  <!-- TIMELINE -->
+  <section class="block" id="timeline-sec">
+    <div class="sec-head">
+      <span class="kicker">🗺 Hành trình yêu</span>
+      <h2>Từng mốc nhỏ, <em>một chuyện tình to</em></h2>
+      <p>Tất cả ảnh và lời nhắn cũ của hai đứa được giữ lại, sắp thành dòng thời gian để dễ ôn lại.</p>
+    </div>
+    <div class="timeline" id="timeline"></div>
+  </section>
+
+  <!-- GALLERY -->
+  <section class="block" id="gallery-sec">
+    <div class="sec-head">
+      <span class="kicker">📸 Gallery</span>
+      <h2>Album của <em>hai đứa</em></h2>
+      <p><span id="gCount"></span> — bấm vào ảnh để xem lớn, vuốt / dùng phím ← → để chuyển.</p>
+    </div>
+    <div class="g-grid" id="galleryGrid"></div>
+  </section>
+
+  <!-- LETTER -->
+  <section class="block" id="letter-sec">
+    <div class="sec-head">
+      <span class="kicker">💌 Thư tình</span>
+      <h2>Một lá thư nhỏ <em>gửi em</em></h2>
+      <p>Bấm vào phong thư để mở ra đọc nhé.</p>
+    </div>
+    <div class="letter-wrap">
+      <div class="card envelope" id="envelope" role="button" tabindex="0" aria-label="Mở thư">
+        <div class="big">💌</div>
+        <h3>Gửi em</h3>
+        <p id="letterHint" style="color:var(--muted)">Bấm vào phong thư để mở…</p>
+        <img src="./pic/2.png" alt="" style="width:90px;margin-top:8px" onerror="this.style.display='none'">
+      </div>
+      <div class="card paper" id="paper" style="display:none">
+        <h3>Gửi em</h3>
+        <div id="letterText"></div>
+        <div class="letter-actions">
+          <button class="btn btn-ghost" id="retypeBtn">Gõ lại ✍️</button>
+          <button class="btn btn-primary" id="copyBtn">Copy thư 💌</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FUN -->
+  <section class="block" id="fun-sec">
+    <div class="sec-head">
+      <span class="kicker">🎮 Góc ngọt ngào</span>
+      <h2>Chơi một chút, <em>yêu thêm một chút</em></h2>
+      <p>Lý do anh yêu em, hũ lời hứa và một bài quiz nhỏ xem hai đứa hiểu nhau cỡ nào.</p>
+    </div>
+    <div class="fun-grid">
+      <div class="card fun">
+        <div style="font-size:40px">💘</div>
+        <h3>Lý do anh yêu em</h3>
+        <p class="sub">Mỗi lần bấm là một lý do mới hiện ra.</p>
+        <div class="reason-card" id="reasonCard">“Vì em là em, thế thôi cũng đủ rồi”</div>
+        <button class="btn btn-primary" id="reasonBtn">Xem lý do khác 💗</button>
+      </div>
+      <div class="card fun">
+        <div class="jar">🫙</div>
+        <h3>Hũ lời hứa</h3>
+        <p class="sub">Rút một lời hứa nhỏ anh dành cho em.</p>
+        <div class="reason-card" id="promiseCard">“Bấm nút để rút một lời hứa…”</div>
+        <button class="btn btn-primary" id="promiseBtn">Rút lời hứa 🤙</button>
+      </div>
+      <div class="card quiz">
+        <div style="text-align:center;font-size:40px">🧠💗</div>
+        <h3 style="text-align:center">Quiz: Hai đứa hiểu nhau cỡ nào?</h3>
+        <p class="sub" style="text-align:center">Trả lời 4 câu về kỷ niệm của hai đứa nhé.</p>
+        <div id="quizBox"></div>
+        <div id="quizResult"></div>
+        <div style="text-align:center;margin-top:10px">
+          <button class="btn btn-ghost" id="quizReset">Chơi lại 🔄</button>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="hearts">💗 💖 💗</div>
+  <p>Làm bằng cả trái tim — từ ngày <strong>21/10/2023</strong> đến mãi về sau.</p>
+  <p style="font-size:12px">Mẹo: bấm vào bất kỳ chỗ trống nào cũng có tim bay lên đó ✨</p>
+</footer>
+
+<!-- Lightbox -->
+<div id="lightbox" role="dialog" aria-label="Xem ảnh lớn">
+  <div class="lb-box">
+    <button class="lb-btn lb-close" id="lbClose">✕</button>
+    <img id="lbImg" src="" alt="ảnh kỷ niệm">
+    <div class="lb-meta">
+      <button class="lb-btn" id="lbPrev">‹</button>
+      <p><span id="lbCap"></span><br><small id="lbCount"></small></p>
+      <button class="lb-btn" id="lbNext">›</button>
+    </div>
+  </div>
+</div>
+
+<div id="toast"></div>
+
+<script type="text/javascript" src="./js/main.js"></script>
+</body>
+</html>
